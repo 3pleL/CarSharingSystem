@@ -2,7 +2,7 @@
 #include "config.h"
 #include "led.hpp"
 
-Led led1(13);
+Led led_internal(INTERNAL_LED);
 
 void setup() {
   Serial.begin(DEBUG_BAUDRATE);
@@ -12,9 +12,9 @@ void setup() {
   Serial.print(" ");
   Serial.println(__DATE__);
   
-  led1.blink(1000);
+  led_internal.blink(1000);
 }
 
 void loop() {
-  led1.update();
+  led_internal.update();
 }
