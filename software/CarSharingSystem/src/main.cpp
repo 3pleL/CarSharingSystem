@@ -1,14 +1,14 @@
+/*Copyright 2020 3pleL*/
 #include <Arduino.h>
 #include <SPI.h>
 #include <SD.h>
 
-#include "config.h"
+#include "./config.h"
 #include "led.hpp"
 
 Led led_internal(INTERNAL_LED);
 
-void setup()
-{
+void setup() {
   Serial.begin(DEBUG_BAUDRATE);
   Serial.println(VERSION_NAME);
   Serial.print("build: ");

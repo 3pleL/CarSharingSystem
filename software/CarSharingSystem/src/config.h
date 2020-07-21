@@ -1,5 +1,6 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+/*Copyright 2020 3pleL*/
+#ifndef SRC_CONFIG_H_
+#define SRC_CONFIG_H_
 /******************************************************************************
 *
 * Generic configuration
@@ -23,5 +24,4 @@
 ******************************************************************************/
 #define DEBUG_BAUDRATE 115200
 
- 
-#endif
+#endif  // SRC_CONFIG_H_
