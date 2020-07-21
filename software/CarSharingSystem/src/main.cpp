@@ -1,10 +1,9 @@
 /*Copyright 2020 3pleL*/
-#include <Arduino.h>
-#include <SPI.h>
-#include <SD.h>
+#include <Arduino.h> 
 
 #include "./config.h"
 #include "led.hpp"
+#include "sdhelper.hpp"
 
 Led led_internal(INTERNAL_LED);
 
@@ -15,13 +14,10 @@ void setup() {
   Serial.print(__TIME__);
   Serial.print(" ");
   Serial.println(__DATE__);
-
-  if (!SD.begin(CS_SD)) {
-    Serial.println("Card failed, or not present");
-    led_internal.blink(200);
+  if (!sdInit(CS_SD)) {
+    led_internal.switchOn();
   } else {
-    Serial.println("card initialized.");
-    led_internal.blink(1000);
+    led_internal.blink(200);
   }
 }
 
