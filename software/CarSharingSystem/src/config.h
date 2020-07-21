@@ -13,7 +13,8 @@
 * GPIO assignments
 *
 ******************************************************************************/
-#define INTERNAL_LED 2
+#define INTERNAL_LED 2  // nodeMCU ESP32S onboard LED
+#define CS_SD 5         // SD Card - SPI Devices Connected to VSPI
 
 /******************************************************************************
 *
