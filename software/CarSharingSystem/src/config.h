@@ -24,4 +24,11 @@
 ******************************************************************************/
 #define DEBUG_BAUDRATE 115200
 
+/******************************************************************************
+*
+* Filenames 
+*
+******************************************************************************/
+const String logfile {"/logfile.txt"};    // File containing debug/logging data
+const String datafile {"/datafile.csv"};  // File containing payload data
 #endif  // SRC_CONFIG_H_

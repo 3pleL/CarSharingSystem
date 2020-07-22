@@ -10,3 +10,15 @@ int sdInit(int cs) {
     return 0;
   }
 }
+
+int sdAppendToFile(String filename, String payload) {
+  File f = SD.open(filename, FILE_APPEND);
+  if (f) {
+    f.println(payload);
+    f.close();
+    return 0;
+  } else {
+    Serial.println("opening file failed");
+    return -1;
+  }
+}

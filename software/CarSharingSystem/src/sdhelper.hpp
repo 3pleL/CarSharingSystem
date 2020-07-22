@@ -12,8 +12,9 @@ int sdInit(int);
 /**
  * SD Card Appending datastructure to file
  * @return int 0 on success, negative on error 
- * @param int LED pin number
+ * @param String filename
+ * @param String payload
  **/
-int sdAppendToFile();
+int sdAppendToFile(String, String);
 
 #endif  // SRC_SDHELPER_HPP_
