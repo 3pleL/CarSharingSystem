@@ -20,8 +20,12 @@ void setup() {
   } else {
     led_internal.blink(200);
   }
+
+  Serial2.begin(GPS_BAUDRATE);
 }
 
 void loop() {
   led_internal.update();
+  while (Serial2.available() > 0)
+    Serial.write(Serial2.read());
 }
