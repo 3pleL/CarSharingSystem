@@ -4,8 +4,10 @@
 #include <TinyGPS++.h>
 #include "datastruct.hpp"
 
-const int INVALID_LOCATION {-1};
-const int INVALID_TIME {-2};
+const int INVALID_LOCATION {-1};        // Error Code for invalid location data
+const int INVALID_TIME {-2};            // Error Code for invalid time & date data
+const double FILTER_RADIUS {0.010};     // Radius in km to be ignored for distance calculations
+
 /**
  * Handle GPS data
  * @return int 0 on success, negative on error

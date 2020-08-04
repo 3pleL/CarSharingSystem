@@ -7,6 +7,7 @@
 #include "led.hpp"
 #include "sdhelper.hpp"
 #include "gpshelper.hpp"
+#include "./testdata.h"
 
 TinyGPSPlus gps;
 Led led_internal(INTERNAL_LED);
@@ -25,7 +26,8 @@ void setup() {
   } else {
     led_internal.blink(200);
   }
-
+  sessiondata.m_lat = test_lat;
+  sessiondata.m_lng = test_lng;
   Serial2.begin(GPS_BAUDRATE);
   Serial.println(sessiondata.toCsvString());
 }

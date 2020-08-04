@@ -1,15 +1,17 @@
 /*Copyright 2020 3pleL*/
 #include "gpshelper.hpp"
 
-int handleData(TinyGPSPlus& gps, Datastruct& sessiondata) {
+int handleData(TinyGPSPlus& gps, Datastruct& sessiondata) {  // NOLINT
   if (gps.location.isValid()) {
-    // calculate distance from last known fix
-    sessiondata.m_distance +=
-        gps.distanceBetween(gps.location.lat(), gps.location.lng(),
-                            sessiondata.m_lat, sessiondata.m_lng) /
-        1000.0;
-    sessiondata.m_lat = gps.location.lat();
-    sessiondata.m_lng = gps.location.lng();
+    // calculate distance in km from last known fix
+    double dist = gps.distanceBetween(gps.location.lat(), gps.location.lng(),
+                                      sessiondata.m_lat, sessiondata.m_lng) /
+                  1000.0;
+    if (dist > 0.010) {
+      sessiondata.m_distance += dist;
+      sessiondata.m_lat = gps.location.lat();
+      sessiondata.m_lng = gps.location.lng();
+    }
   } else {
     return INVALID_LOCATION;
   }
@@ -22,7 +24,6 @@ int handleData(TinyGPSPlus& gps, Datastruct& sessiondata) {
     return INVALID_TIME;
   }
 
-  Serial.print(F(" "));
   if (gps.time.isValid()) {
     sessiondata.m_hour = gps.time.hour();
     sessiondata.m_minute = gps.time.minute();
