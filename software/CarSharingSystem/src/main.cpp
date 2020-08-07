@@ -3,15 +3,17 @@
 #include <TinyGPS++.h>
 
 #include "./config.h"
+#include "./testdata.h"
 #include "datastruct.hpp"
+#include "gpshelper.hpp"
 #include "led.hpp"
 #include "sdhelper.hpp"
-#include "gpshelper.hpp"
-#include "./testdata.h"
 
 TinyGPSPlus gps;
 Led led_internal(INTERNAL_LED);
 Datastruct sessiondata;
+
+void cutStringToDatastruct(String s);
 
 void setup() {
   Serial.begin(DEBUG_BAUDRATE);
@@ -26,11 +28,10 @@ void setup() {
   } else {
     led_internal.blink(200);
   }
-  sessiondata.m_lat = test_lat;
-  sessiondata.m_lng = test_lng;
   Serial2.begin(GPS_BAUDRATE);
+  // get last position from sd card
   Serial.println(sessiondata.toCsvString());
-  Serial.print(sdGetLastLine(datafile));
+  cutStringToDatastruct(sdGetLastLine(datafile));
 }
 
 void loop() {
@@ -50,3 +51,18 @@ void loop() {
   }
 }
 
+void cutStringToDatastruct(String s) {
+  int lat_del = s.lastIndexOf(',');
+  int sec_del = s.lastIndexOf(',', lat_del - 1);
+
+  /*sessiondata.m_ID            // delimiter ","
+  sessiondata.m_distance      // delimiter ","
+  sessiondata.m_year          // delimiter "."
+  sessiondata.m_month         // delimiter "."
+  sessiondata.m_day           // delimiter ","
+  sessiondata.m_hour          // delimiter ":"
+  sessiondata.m_minute        // delimiter ":"
+  sessiondata.m_second        // delimiter "," */
+  sessiondata.m_lat = s.substring(sec_del + 1, lat_del).toDouble();
+  sessiondata.m_lng = s.substring(lat_del + 1).toDouble();
+}
