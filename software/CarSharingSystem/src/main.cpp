@@ -30,6 +30,7 @@ void setup() {
   sessiondata.m_lng = test_lng;
   Serial2.begin(GPS_BAUDRATE);
   Serial.println(sessiondata.toCsvString());
+  Serial.print(sdGetLastLine(datafile));
 }
 
 void loop() {
