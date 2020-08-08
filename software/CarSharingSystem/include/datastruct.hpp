@@ -1,6 +1,6 @@
 /*Copyright 2020 3pleL*/
-#ifndef SRC_DATASTRUCT_HPP_
-#define SRC_DATASTRUCT_HPP_
+#ifndef INCLUDE_DATASTRUCT_HPP_
+#define INCLUDE_DATASTRUCT_HPP_
 #include <Arduino.h>
 
 /******************************************************************************
@@ -28,4 +28,4 @@ class Datastruct {
   String toCsvString();
 };
 
-#endif  // SRC_DATASTRUCT_HPP_
+#endif  // INCLUDE_DATASTRUCT_HPP_

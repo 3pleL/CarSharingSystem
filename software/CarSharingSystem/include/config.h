@@ -1,6 +1,7 @@
 /*Copyright 2020 3pleL*/
-#ifndef SRC_CONFIG_H_
-#define SRC_CONFIG_H_
+#ifndef INCLUDE_CONFIG_H_
+#define INCLUDE_CONFIG_H_
+#include <Arduino.h>
 /******************************************************************************
 *
 * Generic configuration
@@ -40,4 +41,4 @@
 const String logfile {"/logfile.txt"};    // File containing debug/logging data
 const String datafile {"/datafile.csv"};  // File containing payload data
 
-#endif  // SRC_CONFIG_H_
+#endif  // INCLUDE_CONFIG_H_
