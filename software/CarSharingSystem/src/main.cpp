@@ -2,12 +2,12 @@
 #include <Arduino.h>
 #include <TinyGPS++.h>
 
-#include "./config.h"
-#include "./testdata.h"
-#include "datastruct.hpp"
-#include "gpshelper.hpp"
-#include "led.hpp"
-#include "sdhelper.hpp"
+#include "led.hpp"          //NOLINT
+#include "config.h"         //NOLINT
+#include "testdata.h"       //NOLINT
+#include "datastruct.hpp"   //NOLINT
+#include "gpshelper.hpp"    //NOLINT
+#include "sdhelper.hpp"     //NOLINT
 
 TinyGPSPlus gps;
 Led led_internal(INTERNAL_LED);
@@ -30,13 +30,14 @@ void setup() {
   }
   Serial2.begin(GPS_BAUDRATE);
   // get last position from sd card
-  Serial.println(sessiondata.toCsvString());
   cutStringToDatastruct(sdGetLastLine(datafile));
+  Serial.println(sessiondata.toCsvString());
 }
 
 void loop() {
+  // check GPIOs
   led_internal.update();
-
+  // check GPS
   while (Serial2.available() > 0)
     if (gps.encode(Serial2.read())) {
       if (handleData(gps, sessiondata) < 0) {
@@ -45,7 +46,8 @@ void loop() {
         Serial.println(sessiondata.toCsvString());
       }
     }
-
+  // TODO(3pleL) check RFID
+  // TODO(3pleL) check power supply - if power down, write data to sd card
   if (millis() > 5000 && gps.charsProcessed() < 10) {
     Serial.println(F("No GPS detected: check wiring."));
   }
