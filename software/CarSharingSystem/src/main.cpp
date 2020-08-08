@@ -8,6 +8,7 @@
 #include "datastruct.hpp"   //NOLINT
 #include "gpshelper.hpp"    //NOLINT
 #include "sdhelper.hpp"     //NOLINT
+#include "logger.hpp"       //NOLINT
 
 TinyGPSPlus gps;
 Led led_internal(INTERNAL_LED);
@@ -27,11 +28,13 @@ void setup() {
     led_internal.switchOn();
   } else {
     led_internal.blink(200);
+    Log(F("SD Init failed"));
   }
   Serial2.begin(GPS_BAUDRATE);
   // get last position from sd card
   cutStringToDatastruct(sdGetLastLine(datafile));
   Serial.println(sessiondata.toCsvString());
+  Log(F("Start up successful"));
 }
 
 void loop() {
@@ -41,7 +44,7 @@ void loop() {
   while (Serial2.available() > 0)
     if (gps.encode(Serial2.read())) {
       if (handleData(gps, sessiondata) < 0) {
-        Serial.println("Invalid GPS fix");
+        Serial.println(F("Invalid GPS fix"));
       } else {
         Serial.println(sessiondata.toCsvString());
       }
@@ -49,7 +52,7 @@ void loop() {
   // TODO(3pleL) check RFID
   // TODO(3pleL) check power supply - if power down, write data to sd card
   if (millis() > 5000 && gps.charsProcessed() < 10) {
-    Serial.println(F("No GPS detected: check wiring."));
+    Log(F("No GPS detected: check wiring."));
   }
 }
 
