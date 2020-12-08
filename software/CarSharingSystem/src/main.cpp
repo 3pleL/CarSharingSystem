@@ -28,13 +28,13 @@ void setup() {
   Serial.print(" ");
   Serial.println(__DATE__);
 
-  if (!sdInit(CS_SD)) {
-    led_internal.switchOn();
-  } else {
-    led_internal.blink(200);
-    Log(F("SD Init failed"));
-  }
-  SPI.begin();          // Init SPI bus
+  // if (!sdInit(CS_SD)) {
+  //   led_internal.switchOn();
+  // } else {
+  //   led_internal.blink(200);
+  //   Log(F("SD Init failed"));
+  // }
+  SPI.begin(18,19,23,6);          // Init SPI bus
   mfrc522.PCD_Init();  // Init MFRC522
   delay(5);  // Optional delay. Some board do need more time after init to be
              // ready, see Readme
@@ -60,11 +60,11 @@ void setup() {
   mfrc522.PCD_DumpVersionToSerial();  // Show details of PCD - MFRC522 Card
                                       // Reader details
   Serial.println(F("Scan PICC to see UID, SAK, type, and data blocks..."));
-  Serial2.begin(GPS_BAUDRATE);
+  //Serial2.begin(GPS_BAUDRATE);
   // get last position from sd card
-  cutStringToDatastruct(sdGetLastLine(datafile));
-  Serial.println(sessiondata.toCsvString());
-  Log(F("Start up successful"));
+  //cutStringToDatastruct(sdGetLastLine(datafile));
+  //Serial.println(sessiondata.toCsvString());
+  //Log(F("Start up successful"));
 }
 
 void loop() {
@@ -85,19 +85,19 @@ void loop() {
     delay(1000);
   }
   // check GPS
-  while (Serial2.available() > 0)
-    if (gps.encode(Serial2.read())) {
-      if (handleData(gps, sessiondata) < 0) {
-        Serial.println(F("Invalid GPS fix"));
-      } else {
-        Serial.println(sessiondata.toCsvString());
-      }
-    }
+  // while (Serial2.available() > 0)
+  //   if (gps.encode(Serial2.read())) {
+  //     if (handleData(gps, sessiondata) < 0) {
+  //       Serial.println(F("Invalid GPS fix"));
+  //     } else {
+  //       Serial.println(sessiondata.toCsvString());
+  //     }
+  //   }
   // TODO(3pleL) check RFID
   // TODO(3pleL) check power supply - if power down, write data to sd card
-  if (millis() > 5000 && gps.charsProcessed() < 10) {
-    Log(F("No GPS detected: check wiring."));
-  }
+  // if (millis() > 5000 && gps.charsProcessed() < 10) {
+  //   Log(F("No GPS detected: check wiring."));
+  // }
 }
 
 void cutStringToDatastruct(String s) {
