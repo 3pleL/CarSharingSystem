@@ -1,6 +1,7 @@
 /*Copyright 2020 3pleL*/
-#ifndef SRC_CONFIG_H_
-#define SRC_CONFIG_H_
+#ifndef INCLUDE_CONFIG_H_
+#define INCLUDE_CONFIG_H_
+#include <Arduino.h>
 /******************************************************************************
 *
 * Generic configuration
@@ -28,9 +29,18 @@
 
 /******************************************************************************
 *
+* Serial Port (GPS) - Connected to Serial2  Pin 16 - RX 
+*                                           Pin 17 - TX 
+*
+******************************************************************************/
+#define GPS_BAUDRATE 9600
+
+/******************************************************************************
+*
 * Filenames 
 *
 ******************************************************************************/
 const String logfile {"/logfile.txt"};    // File containing debug/logging data
 const String datafile {"/datafile.csv"};  // File containing payload data
-#endif  // SRC_CONFIG_H_
+
+#endif  // INCLUDE_CONFIG_H_
