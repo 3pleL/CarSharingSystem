@@ -14,10 +14,11 @@
  **/
 int rfidInit(PN532&);
 /**
- * RFID Module Check for Cards and read UID if found
+ * RFID Module Check for Cards and read UID if found.
+ * This is only done once every second.
  * @param PN532& reference to rfid module object
  * @param Datastruct& reference to structure to hold the read data
- * @return int 0 on success, negative on error 
+ * @return int 0 on success, negative on error, 99 on idle
  **/
 int rfidReadCard(PN532&,  Datastruct&);
 
