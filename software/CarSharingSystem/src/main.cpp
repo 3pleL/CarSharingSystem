@@ -29,7 +29,7 @@ void setup() {
   Serial.print(__TIME__);
   Serial.print(" ");
   Serial.println(__DATE__);
-
+  Wire.begin(21,22,400000);
   // init SD card
   if (sdInit(CS_SD) == -1) {
     led_internal.blink(200);
@@ -47,7 +47,7 @@ void setup() {
 
   // get last position from sd card
   sessiondata.pasteStringToDatastruct(sdGetLastLine(datafile));
-
+  Serial.println(sessiondata.toCsvString());
   // finished setup
   Log(F("Start up successful"));
 }
@@ -60,9 +60,10 @@ void loop() {
   while (Serial2.available() > 0) {
     if (gps.encode(Serial2.read())) {
       if (handleData(gps, sessiondata) < 0) {
-        Serial.println(F("Invalid GPS fix"));
+        led_internal.blink(1000);
       } else {
         Serial.println(sessiondata.toCsvString());
+        led_internal.switchOn();
       }
     }
     if (millis() > 5000 && gps.charsProcessed() < 10) {
@@ -72,7 +73,9 @@ void loop() {
   }
 
   // check USER card
-  rfidReadCard(rfid, sessiondata);
+  if(!rfidReadCard(rfid, sessiondata)){
+    Serial.println(sessiondata.toCsvString());
+  }
 
   // TODO(3pleL) check power supply - if power down, write data to sd card
 }
