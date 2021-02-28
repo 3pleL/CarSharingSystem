@@ -17,6 +17,7 @@
 ******************************************************************************/
 #define INTERNAL_LED 2  // nodeMCU ESP32S onboard LED
 #define CS_SD 5         // SD Card - SPI Devices Connected to VSPI
+#define VOLTAGE_INPUT 39// Voltage measurement input pin
 
 /******************************************************************************
 *

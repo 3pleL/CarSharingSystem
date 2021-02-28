@@ -13,6 +13,7 @@
 #include "rfidHelper.hpp"  //NOLINT
 #include "sdhelper.hpp"    //NOLINT
 #include "testdata.h"      //NOLINT
+#include "voltagehelper.hpp"  //NOLINT
 
 PN532_I2C pn532i2c(Wire);
 PN532 rfid(pn532i2c);
@@ -29,7 +30,9 @@ void setup() {
   Serial.print(__TIME__);
   Serial.print(" ");
   Serial.println(__DATE__);
-  Wire.begin(21,22,400000);
+  // init analog input
+  measureInit(VOLTAGE_INPUT);
+  
   // init SD card
   if (sdInit(CS_SD) == -1) {
     led_internal.blink(200);
@@ -37,6 +40,7 @@ void setup() {
   }
 
   // init PN532 module
+  Wire.begin(21,22,400000);
   if (rfidInit(rfid) == -1) {
     led_internal.blink(200);
     Log(F("RFID Init failed"));
@@ -77,5 +81,7 @@ void loop() {
     Serial.println(sessiondata.toCsvString());
   }
 
-  // TODO(3pleL) check power supply - if power down, write data to sd card
+  //check power supply - if power down, write data to sd card
+  int millivolts = measureVoltage(VOLTAGE_INPUT);
+  Serial.println(millivolts);
 }
