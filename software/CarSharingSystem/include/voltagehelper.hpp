@@ -11,7 +11,7 @@ int measureInit(int);
 /**
  * Take a reading of the configured analog input.
  * @param int Pin to use for voltage measurement
- * @return voltage in mV calculated for a resistor divider of 9k/1k
+ * @return voltage in mV calculated for a resistor divider of 10k/1k
  **/
 int measureVoltage(int);
 

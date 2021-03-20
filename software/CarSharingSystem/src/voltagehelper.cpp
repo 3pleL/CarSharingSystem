@@ -12,7 +12,7 @@ int measureInit(int pin){
 
 int measureVoltage(int pin){
     int sensorValueRaw = analogRead(pin);
-    int sensorValue = map(sensorValueRaw, 0, 4095, 0, 33000);
+    int sensorValue = map(sensorValueRaw, 0, 4095, 0, 36300);
     return sensorValue;
 }
 #endif  // SRC_VOLTAGEHELPER_CPP_

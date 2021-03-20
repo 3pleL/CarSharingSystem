@@ -53,7 +53,6 @@ void setup() {
   sessiondata.pasteStringToDatastruct(sdGetLastLine(datafile));
   Serial.println(sessiondata.toCsvString());
   // finished setup
-  Log(F("Start up successful"));
 }
 
 void loop() {
@@ -82,6 +81,8 @@ void loop() {
   }
 
   //check power supply - if power down, write data to sd card
-  int millivolts = measureVoltage(VOLTAGE_INPUT);
-  Serial.println(millivolts);
+  if(measureVoltage(VOLTAGE_INPUT)<VOLTAGE_THRESHOLD){
+    sdAppendToFile(datafile, sessiondata.toCsvString());
+    delay(20000); //delay to prevent multiple unnecessary writes 
+  }  
 }
