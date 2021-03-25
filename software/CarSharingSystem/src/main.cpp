@@ -85,6 +85,8 @@ void loop() {
     sdAppendToFile(datafile, sessiondata.toCsvString());
     Serial.print("Wrote Data to card: ");
     Serial.println(sessiondata.toCsvString());
+    //reset distance, so there will not be duplicate entries in case of power problems
+    sessiondata.m_distance=0;
     delay(20000); //delay to prevent multiple unnecessary writes 
   }  
 }
