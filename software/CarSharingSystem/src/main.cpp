@@ -83,6 +83,8 @@ void loop() {
   //check power supply - if power down, write data to sd card
   if(measureVoltage(VOLTAGE_INPUT)<VOLTAGE_THRESHOLD){
     sdAppendToFile(datafile, sessiondata.toCsvString());
+    Serial.print("Wrote Data to card: ");
+    Serial.println(sessiondata.toCsvString());
     delay(20000); //delay to prevent multiple unnecessary writes 
   }  
 }
