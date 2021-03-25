@@ -10,5 +10,6 @@
         "memory": "cpp",
         "random": "cpp",
         "initializer_list": "cpp"
-    }
+    },
+    "python.pythonPath": "C:\\Users\\Linux\\AppData\\Local\\Programs\\Python\\Python39\\python.exe"
 }
