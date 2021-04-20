@@ -44,4 +44,12 @@
 const String logfile {"/logfile.txt"};    // File containing debug/logging data
 const String datafile {"/datafile.csv"};  // File containing payload data
 
+/******************************************************************************
+*
+* ESP32 deep sleep configuration 
+*
+******************************************************************************/
+#define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
+#define TIME_TO_SLEEP  120        /* Time ESP32 will go to sleep (in seconds) */
+
 #endif  // INCLUDE_CONFIG_H_
