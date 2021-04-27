@@ -30,15 +30,22 @@ void setup() {
   Serial.print(__TIME__);
   Serial.print(" ");
   Serial.println(__DATE__);
+
   // init analog input
   measureInit(VOLTAGE_INPUT);
-  
+  pinMode(POWER_SWITCH, OUTPUT);
+  digitalWrite(POWER_SWITCH, HIGH);
+
   // configure wake up source
   esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
   if(measureVoltage(VOLTAGE_INPUT)<VOLTAGE_THRESHOLD){
     esp_deep_sleep_start();
   }
-  
+
+  //enable power to modules
+  digitalWrite(POWER_SWITCH, LOW);
+  delay(10);
+
   // init SD card
   if (sdInit(CS_SD) == -1) {
     led_internal.blink(200);
@@ -93,6 +100,9 @@ void loop() {
     Serial.println(sessiondata.toCsvString());
     //reset distance, so there will not be duplicate entries in case of power problems
     sessiondata.m_distance=0;\
+    delay(10);
+    //disable power to modules
+    digitalWrite(POWER_SWITCH, HIGH);
     //send ESP to deep sleep
     esp_deep_sleep_start();
   }  
